@@ -8,9 +8,6 @@ public class StringCalculatorTest {
 
     private StringCalculator calculator;
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
     @Before
     public void setUp() throws Exception {
         calculator = new StringCalculator();
