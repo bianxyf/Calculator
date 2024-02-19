@@ -59,4 +59,17 @@ public class StringCalculatorTest {
         int sum = calculator.Add("1\n");
         Assert.assertEquals(1, sum);
     }
+
+    @Test
+    public void shouldVerifyAddNewDelimiters(){
+        //Example: "//;\n1;2" returns 6.
+        int sum = calculator.Add("//;\n1;2");
+        Assert.assertEquals(3, sum);
+    }
+
+    @Test
+    public void shouldVerifyAddNewDelimiterPipe(){
+        int sum = calculator.Add("//|\n1|2|6");
+        Assert.assertEquals(9, sum);
+    }
 }

@@ -3,7 +3,14 @@ import java.util.Arrays;
 public class StringCalculator {
 
     public int Add(String input){
-        String[] numbers = input.split("[,\n]");
+        String delimiter = "[,\n]";
+        if (input.startsWith("//")) {
+            String[] newInput = input.split("\n");
+            delimiter = "["+newInput[0].replace("//","")+"\n]";
+            input = newInput[1];
+        }
+
+        String[] numbers = input.split(delimiter);
         try {
             if (numbers.length == 1) {
                 if (numbers[0].isEmpty()) {
