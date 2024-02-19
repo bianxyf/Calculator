@@ -125,6 +125,31 @@ public class StringCalculatorTest {
         }
     }
 
+    @Test
+    public void shouldVerifyAnyLengthDelimiters() {
+        //Example: //[|||]\n1|||2|||3 --> returns 6.
+        int sum = callMethodUnderTest("//[|||]\n1|||2|||3");
+        Assert.assertEquals(6, sum);
+    }
+
+    @Test
+    public void shouldVerifyAnyLengthDelimiters_2() {
+        int sum = callMethodUnderTest("//[@%&]\n11@%&2@%&15");
+        Assert.assertEquals(28, sum);
+    }
+
+    @Test
+    public void shouldVerifyMultipleDelimiters() {
+        int sum = callMethodUnderTest("//[|][%]\n1|2%3");
+        Assert.assertEquals(6, sum);
+    }
+
+    @Test
+    public void shouldVerifyMultipleDelimitersWithAnyLength() {
+        int sum = callMethodUnderTest("//[|*][%^]\n1|*2%^9");
+        Assert.assertEquals(12, sum);
+    }
+
     private int callMethodUnderTest(String input) {
         try{
             return calculator.Add(input);
