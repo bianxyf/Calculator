@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class StringCalculator {
 
-    public int Add(String input){
+    public int Add(String input) throws Exception {
         String delimiter = "[,\n]";
         if (input.startsWith("//")) {
             String[] newInput = input.split("\n");
@@ -19,9 +19,23 @@ public class StringCalculator {
                 return Integer.parseInt(numbers[0]);
             } else {
                 int total = 0;
+                String negativeNumbers = "";
                 for(String num : numbers) {
-                    total += Integer.parseInt(num);
+
+                    if (num.contains("-")) {
+                        if (negativeNumbers.length()>1) {
+                            negativeNumbers += ",";
+                        }
+                        negativeNumbers += num;
+                    } else {
+                        total += Integer.parseInt(num);
+                    }
                 }
+
+                if (!negativeNumbers.isEmpty()) {
+                    throw new Exception("Negatives not allowed: " + negativeNumbers);
+                }
+
                 return total;
             }
         } catch(NumberFormatException ex){
