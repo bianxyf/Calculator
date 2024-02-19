@@ -2,15 +2,12 @@ import java.util.Arrays;
 
 public class StringCalculator {
 
+    private String negativeNumbers = "";
+    private String delimiter = "[,\n]";
+
     public int Add(String input) throws Exception {
-        String delimiter = "[,\n]";
-        if (input.startsWith("//")) {
-            //Need to set the new delimiter and input string (excluding the delimiter information)
-            String[] newInput = input.split("\n");
-            delimiter = newInput[0].replace("//","").replace("[","").replace("]","");
-            delimiter = "[" + delimiter + "]+";
-            input = newInput[1];
-        }
+
+        input = processNewDelimiterAndInput(input);
 
         String[] numbers = input.split(delimiter);
         try {
@@ -21,9 +18,9 @@ public class StringCalculator {
                 return Integer.parseInt(numbers[0]);
             } else {
                 int total = 0;
-                String negativeNumbers = "";
+               // String negativeNumbers = "";
                 for(String num : numbers) {
-                    if (!checkNegativeNumbers(num, negativeNumbers)) {
+                    if (!checkNegativeNumbers(num)) {
                         int value = Integer.parseInt(num);
                         if (value <= 1000) {
                             //Ignore anything > 1000
@@ -44,7 +41,29 @@ public class StringCalculator {
         }
     }
 
-    private boolean checkNegativeNumbers(String num, String negativeNumbers){
+    /**
+     * This is a helper method that identifies whether a new delimiter is provided and if so, it sets the new delimiter and
+     * sends back the new input data (excluding the delimiter information)
+     * @param input
+     * @return if New delimiter exists, newInput string is returned else, original input data is returned
+     */
+    private String processNewDelimiterAndInput(String input){
+        if (input.startsWith("//")) {
+            String[] newInput = input.split("\n");
+            delimiter = newInput[0].replace("//", "").replace("[", "").replace("]", "");
+            delimiter = "[" + delimiter + "]+";
+            return newInput[1];
+        }
+        return input;
+    }
+
+    /**
+     * This method checks if provided number is a negative value, and if it is, it adds the value in the global
+     * String NegativeNumbers parameter which gets sent back as the Exception Message.
+     * @param num
+     * @return true if value is a negative number else, returns false.
+     */
+    private boolean checkNegativeNumbers(String num){
         if (num.contains("-")) {
             if (negativeNumbers.length()>1) {
                 negativeNumbers += ",";
