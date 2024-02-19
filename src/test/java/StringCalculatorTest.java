@@ -98,6 +98,33 @@ public class StringCalculatorTest {
         }
     }
 
+    @Test
+    public void shouldVerifyGreaterThan1000Ignored() {
+        try{
+            int sum = calculator.Add("1001,2");
+        } catch(Exception e){
+            Assert.assertEquals("2", e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldVerifyLess1000Accepted() {
+        try{
+            int sum = calculator.Add("999,2");
+        } catch(Exception e){
+            Assert.assertEquals("1001", e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldVerifyGreaterThan3000Ignored() {
+        try{
+            int sum = calculator.Add("3,3002,2");
+        } catch(Exception e){
+            Assert.assertEquals("5", e.getMessage());
+        }
+    }
+
     private int callMethodUnderTest(String input) {
         try{
             return calculator.Add(input);

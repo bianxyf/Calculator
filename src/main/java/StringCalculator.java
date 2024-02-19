@@ -28,7 +28,10 @@ public class StringCalculator {
                         }
                         negativeNumbers += num;
                     } else {
-                        total += Integer.parseInt(num);
+                        int value = Integer.parseInt(num);
+                        if (value <= 1000) {
+                            total += Integer.parseInt(num);
+                        }
                     }
                 }
 
